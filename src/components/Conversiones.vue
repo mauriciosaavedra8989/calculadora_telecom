@@ -123,20 +123,20 @@
         if (this.form.op2 == this.form.op3) this.form.value2 = this.form.value1;
         else if (this.form.op2 == 2) {
           let f1 = this.lista_valores[0];
-          this.form.value2 = f1.f1(parseInt(this.form.value1));
+          this.form.value2 = f1.f1(parseFloat(this.form.value1));
         } else {
           let f2 = this.lista_valores[1];
-          this.form.value2 = f2.f2(parseInt(this.form.value1));
+          this.form.value2 = f2.f2(parseFloat(this.form.value1));
         }
       },
       checkV2() {
         if (this.form.op2 == this.form.op3) this.form.value1 = this.form.value2;
         else if (this.form.op3 == 2) {
           let f1 = this.lista_valores[0];
-          this.form.value1 = f1.f1(parseInt(this.form.value2));
+          this.form.value1 = f1.f1(parseFloat(this.form.value2));
         } else {
           let f2 = this.lista_valores[1];
-          this.form.value1 = f2.f2(parseInt(this.form.value2));
+          this.form.value1 = f2.f2(parseFloat(this.form.value2));
         }
       },
       onSubmit(event) {
