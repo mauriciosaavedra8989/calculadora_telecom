@@ -1,181 +1,255 @@
 <template>
-    <div class="px-4 w-50 mx-auto">
-      <h1 class="mt-3">{{ msg }}</h1>
-      <b-form class="mt-3" @submit="onSubmit" @reset="onReset" v-if="show">
-        <b-form-group id="input-group-3" label="Unidades" label-align="left" label-for="input-3">
-          <b-form-select
-            id="input-3"
-            v-model="form.op1"
-            :options="unidades"
-            required
-          ></b-form-select>
-        </b-form-group>
-  
-        <!-- Componente de conversión -->
-        <div class="d-flex flex-row mt-4">
-          <!-- Primeras unidades -->
-          <div class="w-50">
-            <div class="d-flex flex-column">
-              <div>
-                <b-form-group
-                  id="input-group-1"
-                >
-                  <b-form-input
-                    @input="checkV1"
-                    id="input-1"
-                    v-model="form.value1"
-                    type="number"
-                    placeholder="0"
-                    required
-                  ></b-form-input>
-                </b-form-group>
-              </div>
-  
-              <div>
-                <b-form-group id="input-group-3" class="mt-n3">
-                  <b-form-select
-                    @change="checkV1"
-                    id="input-3"
-                    v-model="form.op2"
-                    :options="lista_opciones_1"
-                    required
-                  ></b-form-select>
-                </b-form-group>
-              </div>
-            </div>
-          </div>
-          <!-- Fin primeras unidades -->
-  
-          <div class="px-2" v-bind:style="{'font-size': '26px'}">=</div>
-  
-          <!-- Segundas unidades -->
-          <div class="w-50">
-            <div class="d-flex flex-column">
-              <div>
-                <b-form-group
-                  id="input-group-1"
-                >
-                  <b-form-input
-                    @input="checkV2"
-                    id="input-1"
-                    v-model="form.value2"
-                    type="number"
-                    placeholder="0"
-                    required
-                  ></b-form-input>
-                </b-form-group>
-              </div>
-  
-              <div>
-                <b-form-group id="input-group-3" class="mt-n3">
-                  <b-form-select
-                    @change="checkV2"
-                    id="input-3"
-                    v-model="form.op3"
-                    :options="lista_opciones_1"
-                    required
-                  ></b-form-select>
-                </b-form-group>
-              </div>
-            </div>
-          </div>
-          <!-- Fin segundas unidades -->
+  <div class="px-4 w-50 mx-auto">
+    <h1 class="mt-3">{{ msg }}</h1>
+    <b-form-group id="input-group-3" label="Ejercicio" label-align="left" label-for="input-3">
+      <b-form-select
+        @change="changeValueFunction"
+        id="input-3"
+        v-model="form.op1"
+        :options="formulas"
+        required
+      ></b-form-select>
+    </b-form-group>
+
+    <!-- Potencia de ruido térmico -->
+    <div v-if="form.op1 == 1" class="mt-3">
+        <div class="d-flex flex-row justify-content-between">
+          <b-form-group
+            id="input-group-1"
+          >
+            <b-form-input
+              label="T"
+              label-align="left"
+              id="input-1"
+              v-model="form.t"
+              type="number"
+              placeholder="T °C"
+              required
+            ></b-form-input>
+          </b-form-group>
+
+          <b-form-group
+            id="input-group-2"
+          >
+            <b-form-input
+              label="B"
+              label-align="left"
+              id="input-1"
+              v-model="form.b"
+              type="number"
+              placeholder="B"
+              required
+            ></b-form-input>
+          </b-form-group>
         </div>
-      </b-form>
-    </div>
-  </template>
-  
-  <script>
-    export default {
-      name: 'Ejercicios',
-      props: {
-        msg: String,
-      },
-      data() {
-        return {
-          unidades: [
-            { text: 'Potencia eléctrica', value: 1 }
-          ],
-          // Esta lista cambiará en futuro de acuerdo a las opciones que se vayan ingresando al selector principal de unidades
-          lista_opciones_1: [
-            { text: 'decibelio-milivatio (dBm)', value: 1 },
-            { text: 'Watts (w)', value: 2 }
-          ],
-          lista_valores: [
-            { f1: (value) => 10 * Math.log10(1000 * value) },
-            { f2: (value) => Math.pow(10, (value/10)) }
-          ],
-          form: {
-            value1: null,
-            value2: null,
-            op1: 1,
-            op2: 1,
-            op3: 1,
-          },
-          show: true
-        }
-      },
-      methods: {
-        getSelectedItem: function(myarg) { // Just a regular js function that takes 1 arg
-          console.log(myarg);
+      </div>
+      <!-- Fin potencia de ruido térmico-->
+
+      <!-- Voltaje de ruido para resistencias -->
+      <div v-if="form.op1 == 2" class="mt-3">
+        <div class="d-flex flex-row justify-content-between">
+          <b-form-group
+            id="input-group-1"
+          >
+            <b-form-input
+              label="R"
+              label-align="left"
+              id="input-1"
+              v-model="form.r"
+              type="number"
+              placeholder="R (Ω)"
+              required
+            ></b-form-input>
+          </b-form-group>
+
+          <b-form-group
+            id="input-group-1"
+          >
+            <b-form-input
+              label="T"
+              label-align="left"
+              id="input-1"
+              v-model="form.t"
+              type="number"
+              placeholder="T °C"
+              required
+            ></b-form-input>
+          </b-form-group>
+
+          <b-form-group
+            id="input-group-2"
+          >
+            <b-form-input
+              label="B"
+              label-align="left"
+              id="input-1"
+              v-model="form.b"
+              type="number"
+              placeholder="B"
+              required
+            ></b-form-input>
+          </b-form-group>
+        </div>
+      </div>
+      <!-- Fin voltaje de ruido para resistencias -->
+
+      <!-- Ancho de banda -->
+      <div v-if="form.op1 == 3" class="mt-3">
+        <div class="d-flex flex-row justify-content-between">
+          <b-form-group
+            id="input-group-1"
+          >
+            <b-form-input
+              label="W"
+              label-align="left"
+              id="input-1"
+              v-model="form.w"
+              type="number"
+              placeholder="Potencia w"
+              required
+            ></b-form-input>
+          </b-form-group>
+
+          <b-form-group
+            id="input-group-2"
+          >
+            <b-form-input
+              label="T"
+              label-align="left"
+              id="input-1"
+              v-model="form.t"
+              type="number"
+              placeholder="T °C"
+              required
+            ></b-form-input>
+          </b-form-group>
+        </div>
+      </div>
+      <!-- Fin ancho de banda -->
+
+      <!-- longitud de onda -->
+      <div v-if="form.op1 == 4" class="mt-3">
+        <div class="d-flex flex-row justify-content-between">
+          <b-form-group
+            id="input-group-1"
+          >
+            <b-form-input
+              label="Frecuencia (kHz)"
+              label-align="left"
+              id="input-1"
+              v-model="form.f1"
+              type="number"
+              placeholder="Frecuencia (kHz)"
+              required
+            ></b-form-input>
+          </b-form-group>
+        </div>
+      </div>
+      <!-- Fin longitud de onda -->
+
+      <div class="d-flex flex-row justify-content-end">
+        <b-button @click="calcResult" variant="outline-primary">Calcular</b-button>
+      </div>
+    <b-card class="mt-3" header="Detalle">
+      <pre class="m-0">{{ value }}</pre>
+    </b-card>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: 'Formulas',
+    props: {
+      msg: String,
+    },
+    data() {
+      return {
+        value: '',
+        formulas: [
+          { text: 'Calcular potencia de ruido térmico', value: 1 },
+          { text: 'Calcular voltaje de ruido para resistencias internas', value: 2 },
+          { text: 'Calcular ancho de banda', value: 3 },
+          { text: 'Calcular longitud de onda', value: 4 },
+        ],
+        form: {
+          op1: 1,
+          t: null,
+          b: null,
+          k: null,
+          r: null,
+          w: null,
+          f1: null,
         },
-        checkV1() {
-          if (this.form.op2 == this.form.op3) this.form.value2 = this.form.value1;
-          else if (this.form.op2 == 2) {
-            let f1 = this.lista_valores[0];
-            this.form.value2 = f1.f1(parseInt(this.form.value1));
-          } else {
-            let f2 = this.lista_valores[1];
-            this.form.value2 = f2.f2(parseInt(this.form.value1));
-          }
-        },
-        checkV2() {
-          if (this.form.op2 == this.form.op3) this.form.value1 = this.form.value2;
-          else if (this.form.op3 == 2) {
-            let f1 = this.lista_valores[0];
-            this.form.value1 = f1.f1(parseInt(this.form.value2));
-          } else {
-            let f2 = this.lista_valores[1];
-            this.form.value1 = f2.f2(parseInt(this.form.value2));
-          }
-        },
-        onSubmit(event) {
-          event.preventDefault()
-          alert(JSON.stringify(this.form))
-        },
-        onReset(event) {
-          event.preventDefault()
-          // Reset our form values
-          this.value1 = null,
-          this.value2 = null,
-          this.op1 = 1,
-          this.op2 = 1,
-          this.op3 = 1,
-          // Trick to reset/clear native browser form validation state
-          this.show = false
-          this.$nextTick(() => {
-            this.show = true
-          })
-        }
+        show: true
       }
-    }
-  </script>
-  
-  <!-- Add "scoped" attribute to limit CSS to this component only -->
-  <style scoped lang="scss">
-  h3 {
-    margin: 40px 0 0;
+    },
+    methods: {
+      changeValueFunction(item) {
+        this.form.op1 = item;
+        this.form.t = null;
+        this.form.b = null;
+        this.form.k = null;
+        this.form.r = null;
+        this.form.w = null;
+        this.form.f1 = null;
+        this.value = "";
+      },
+      calcResult() {
+        let k = 1.38 * Math.pow(10, -23);
+        switch (this.form.op1) {
+          case 1:
+            var t = Number(this.form.t) + 273.15;
+            var b = Number(this.form.b);
+
+            var result = k * t * b;
+            var log = 10 * Math.log10(result / 0.001);
+            this.value = `N = ${result} w \n N = ${log} dBm`;
+            break;
+
+          case 2:
+            var r = Number(this.form.r);
+            var t = Number(this.form.t) + 273.15;
+            var b = Number(this.form.b);
+
+            var result = Math.sqrt(4 * r * k * t * b);
+            this.value = `Vn = ${result}`;
+            break;
+
+          case 3:
+            var t = Number(this.form.t) + 273.15;
+            var w = Number(this.form.w);
+
+            var result = w / (k * t);
+            this.value = `B = ${result} Hz`;
+            break;
+
+          case 4:
+            var khz = Number(this.form.f1);
+            var speed_of_light = 3 * Math.pow(10, 8);
+
+            var result = speed_of_light / (khz * 1000);
+            this.value = `λ = ${result} m`
+            break;
+        }
+      },
+    },
   }
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  li {
-    display: inline-block;
-    margin: 0 10px;
-  }
-  a {
-    color: #42b983;
-  }
-  </style>
-  
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="scss">
+h3 {
+  margin: 40px 0 0;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+a {
+  color: #42b983;
+}
+</style>
