@@ -1,18 +1,18 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png" v-bind:style="{height: '40px', width: '40px'}">
-    <Conversiones msg="Conversión de Unidades"/>
+    <Formulas msg="Libro de fórmulas"/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Conversiones from '@/components/Conversiones.vue'
+import Formulas from '@/components/Formulas.vue'
 
 export default {
-  name: 'HomeView',
+  name: 'FormularioView',
   components: {
-    Conversiones
+    Formulas
   }
 }
 </script>

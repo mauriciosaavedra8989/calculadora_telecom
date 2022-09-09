@@ -1,8 +1,9 @@
 <template>
-  <div id="app">
+  <div id="app" v-bind:style="{'min-height': '100vh'}">
     <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/">Conversiones</router-link> |
+      <router-link to="/formulas">Fórmulas</router-link> |
+      <router-link to="/ejercicios">Ejercicios</router-link>
     </nav>
     <router-view/>
   </div>
