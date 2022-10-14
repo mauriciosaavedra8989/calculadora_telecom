@@ -83,35 +83,6 @@
       </div>
     </b-form>
 
-    <!-- Tabla - primera sección -->
-    <p class="text-left">Number of mated connectors</p>
-    <div class="d-flex justify-content-between align-items-start">
-      <input type="number" name="" id="" placeholder="0">
-      <p>X</p>
-      <p>0.75 dB = </p>
-      <input type="number" name="" id="" placeholder="0">
-      <p>dB</p>
-    </div>
-
-    <!-- Tabla - segunda sección -->
-    <p class="text-left">Number of splices?</p>
-    <div class="d-flex justify-content-between align-items-start">
-      <input type="number" name="" id="" placeholder="0">
-      <p>X</p>
-      <p>0.3 dB = </p>
-      <input type="number" name="" id="" placeholder="0">
-      <p>dB</p>
-    </div>
-
-    <!-- Tabla - tercera sección -->
-    <p class="text-left">Length of fiber in meters?</p>
-    <div class="d-flex justify-content-between align-items-start">
-      <input type="number" name="" id="" placeholder="0">
-      <p>X</p>
-      <p>0.0035 dB = </p>
-      <input type="number" name="" id="" placeholder="0">
-      <p>dB</p>
-    </div>
 
     <div>
       <b-button id="show-btn" @click="showModal">Open Modal</b-button>

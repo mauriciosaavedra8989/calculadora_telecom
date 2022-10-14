@@ -3,7 +3,8 @@
     <nav>
       <router-link to="/">Conversiones</router-link> |
       <router-link to="/formulas">Fórmulas</router-link> |
-      <router-link to="/ejercicios">Ejercicios</router-link>
+      <router-link to="/ejercicios">Ejercicios</router-link> |
+      <router-link to="/perdidas">Perdidas</router-link>
     </nav>
     <router-view/>
   </div>
